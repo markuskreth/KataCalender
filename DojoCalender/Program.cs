@@ -1,12 +1,12 @@
 ﻿
-using System;
 namespace DojoCalender
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Test");
+            Main main = DojoCalender.Main.Parse(args);
+            main.show();
         }
     }
 }
