@@ -6,7 +6,8 @@ namespace DojoCalender
     {
         private short _month;
         private short _year;
-        private ConsoleOutput output;
+        System.IO.Stream openStandardOutput;
+        private StreamOutput output;
 
         public short Month
         {
@@ -25,7 +26,8 @@ namespace DojoCalender
 
         Main(short month, short year)
         {
-            output = new ConsoleOutput();
+            openStandardOutput = Console.OpenStandardOutput();
+            output = new StreamOutput(openStandardOutput);
             _month = month;
             _year = year;
         }
@@ -44,6 +46,7 @@ namespace DojoCalender
         {
             MonatData data = new MonatData(_month, _year);
             output.show(data);
+            openStandardOutput.Close();
 #if DEBUG
             Console.WriteLine("Press enter to close...");
             Console.ReadLine();

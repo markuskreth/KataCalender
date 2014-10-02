@@ -1,21 +1,30 @@
 ﻿using System;
+using System.IO;
 
 namespace DojoCalender
 {
-    class ConsoleOutput
+    class StreamOutput
     {
         private String head = "So Mo Di Mi Do Fr Sa";
+        private StreamWriter writer;
+
+        public StreamOutput(System.IO.Stream stream)
+        {
+            writer = new StreamWriter(stream);
+        }
 
         public void show(MonatData data)
         {
+
             String title = data.Tage[0].ToString("MMMM yyyy");
-            int prefix = (title.Length - head.Length) / 2;
+            int prefix = (head.Length - title.Length) / 2;
             for (int i = 0; i < prefix; i++)
             {
-                Console.Write(" ");
+                writer.Write(" ");
             }
-            Console.WriteLine(title);
-            Console.WriteLine(head);
+
+            writer.WriteLine(title);
+            writer.WriteLine(head);
 
             switch (data.Tage[0].DayOfWeek)
             {
@@ -45,15 +54,16 @@ namespace DojoCalender
             }
             for (int i = 0; i < prefix; i++)
             {
-                Console.Write(" ");
+                writer.Write(" ");
             }
             foreach (DateTime date in data.Tage)
             {
-                Console.Write(date.ToString("dd "));
+                writer.Write(date.ToString("dd "));
                 if (date.DayOfWeek == DayOfWeek.Saturday)
-                    Console.WriteLine();
+                    writer.WriteLine();
             }
-            Console.WriteLine();
+            writer.WriteLine();
+            writer.Flush();
         }
     }
 }
