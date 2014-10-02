@@ -77,5 +77,19 @@ namespace TestProject1
             Assert.AreEqual(2014, actual.Year);
 
         }
+        /// <summary>
+        ///Ein Test für "Parse"  mit nur dem Jahr als Parameter
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("DojoCalender.exe")]
+        public void TestParseYearOnly()
+        {
+            string[] args = { "2014" };
+            Main_Accessor actual;
+            actual = Main_Accessor.Parse(args);
+            Assert.AreEqual(0, actual.Month);
+            Assert.AreEqual(2014, actual.Year);
+
+        }
     }
 }

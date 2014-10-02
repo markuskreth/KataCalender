@@ -24,7 +24,7 @@ namespace DojoCalender
             }
         }
 
-        Main(short month, short year)
+        private Main(short month, short year)
         {
             openStandardOutput = Console.OpenStandardOutput();
             output = new StreamOutput(openStandardOutput);
@@ -39,13 +39,29 @@ namespace DojoCalender
         /// <returns></returns>
         public static Main Parse(string[] args)
         {
-            return new Main(short.Parse(args[0]), short.Parse(args[1]));
+            switch (args.Length)
+            {
+                case 1:
+                    return new Main(0, short.Parse(args[0]));
+                default:
+                    return new Main(short.Parse(args[0]), short.Parse(args[1]));
+            }
+
         }
 
         internal void show()
         {
-            MonatData data = new MonatData(_month, _year);
-            output.show(data);
+            if (_month > 0)
+            {
+                MonatData data = new MonatData(_month, _year);
+                output.show(data);
+            }
+            else
+            {
+                JahrData data = new JahrData(_year);
+                output.show(data);
+            }
+
             openStandardOutput.Close();
 #if DEBUG
             Console.WriteLine("Press enter to close...");

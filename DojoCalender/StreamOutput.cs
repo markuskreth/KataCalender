@@ -15,8 +15,13 @@ namespace DojoCalender
 
         public void show(MonatData data)
         {
+            show(data, "MMMM yyyy");
+        }
 
-            String title = data.Tage[0].ToString("MMMM yyyy");
+        private void show(MonatData data, String titleFormat)
+        {
+
+            String title = data.Tage[0].ToString(titleFormat);
             int prefix = (head.Length - title.Length) / 2;
             for (int i = 0; i < prefix; i++)
             {
@@ -64,6 +69,17 @@ namespace DojoCalender
             }
             writer.WriteLine();
             writer.Flush();
+        }
+
+        public void show(JahrData data)
+        {
+            writer.WriteLine("                                    " + data.Monate[0].Tage[0].Year);
+            writer.WriteLine();
+
+            foreach (MonatData monat in data.Monate)
+            {
+                show(monat, "MMMM");
+            }
         }
     }
 }
